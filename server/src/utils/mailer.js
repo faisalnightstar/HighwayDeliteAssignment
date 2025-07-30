@@ -1,5 +1,4 @@
-import nodemailer from 'nodemailer';
-
+import nodemailer from "nodemailer";
 
 /**
  * @description Utility function to send an email.
@@ -12,17 +11,13 @@ import nodemailer from 'nodemailer';
  * @returns {Promise<void>}
  */
 const sendEmail = async (options) => {
-    // 1. Create a transporter object using SMTP transport.
-    // This is the service that will send the email (e.g., Gmail, SendGrid, Mailtrap).
-    // It's highly recommended to use a development service like Mailtrap.io
-    // before using a production service like SendGrid or AWS SES.
+    // 1. Create a transporter
     const transporter = nodemailer.createTransport({
-        // These details should be stored in your .env file for security
-        host: process.env.MAIL_HOST, // e.g., 'smtp.mailtrap.io' or 'smtp.gmail.com'
-        port: process.env.MAIL_PORT, // e.g., 2525 or 587
+        host: process.env.MAIL_HOST,
+        port: process.env.MAIL_PORT,
         auth: {
-            user: process.env.MAIL_USER, // Your SMTP username
-            pass: process.env.MAIL_PASS, // Your SMTP password
+            user: process.env.MAIL_USER,
+            pass: process.env.MAIL_PASS,
         },
     });
 
@@ -32,18 +27,14 @@ const sendEmail = async (options) => {
         from: `"HD" <${process.env.MAIL_USER}>`,
         to: options.email,
         subject: options.subject,
-        text: options.html.replace(/<[^>]*>?/gm, ''),
+        text: options.html.replace(/<[^>]*>?/gm, ""),
         html: options.html,
     };
 
-
-    // 3. Send the email.
-    // sendMail returns a promise, but since we're in an asyncHandler,
-    // any errors will be automatically caught and passed to the error handling middleware.
+    // 3. Send the email
     await transporter.sendMail(mailOptions);
 
     console.log(`Email sent successfully to ${options.email}`);
 };
 
 export { sendEmail };
-

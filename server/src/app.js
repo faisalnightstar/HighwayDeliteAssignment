@@ -8,7 +8,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: process.env.CORS_ORIGIN_PRODUCTION || process.env.CORS_ORIGIN,
+        origin: process.env.CORS_ORIGIN,
         credentials: true, //access-control-allow-credentials
         methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"], // add here all http methods you use
         allowedHeaders: ["Content-Type", "Authorization"], // add here all headers your
@@ -27,7 +27,7 @@ app.use(passport.initialize());
 
 // routes import
 import userRouter from "./routes/user.routes.js";
-import noteRouter from "./routes/note.route.js"
+import noteRouter from "./routes/note.route.js";
 import { errorMiddleware } from "./utils/ApiError.js";
 
 // routes declaration
@@ -37,9 +37,6 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/notes", noteRouter);
-
-
-
 
 //this middleware should be end.
 app.use(errorMiddleware);
