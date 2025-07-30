@@ -34,36 +34,6 @@ const uploadOnCloudinary = async (localFilePath) => {
     }
 };
 
-const tripUploadOnCloudinary = async (localFilePath) => {
-    try {
-        if (!localFilePath) return null; // Return null if no file path is provided
-
-        // Upload an fie to Cloudinary
-        const uploadResult = await cloudinary.uploader
-            .upload(localFilePath, {
-                resource_type: "auto", // The type of file. 'auto' will automatically detect the type of file
-                crop: "auto",
-                gravity: "auto",
-                width: 1280,
-                height: 720,
-            })
-            .catch((error) => {
-                console.log("uploadResult error in cloudinary utils", error);
-            });
-
-        //console.log(`Files is uploaded successfully: ${uploadResult.url}`);
-        fs.unlinkSync(localFilePath); //Delete the locally saved file if it successfully uploaded
-        return uploadResult;
-    } catch (error) {
-        fs.unlinkSync(localFilePath); // Delete the locally saved file if it fails to upload
-        return null;
-    }
-};
-
-/**
- * Deletes an asset from Cloudinary given its public ID.
- * @param {string} publicId - The public ID of the asset.
- */
 const deleteOnCloudinary = async (publicId) => {
     try {
         const result = await cloudinary.uploader.destroy(publicId);
@@ -74,14 +44,6 @@ const deleteOnCloudinary = async (publicId) => {
     }
 };
 
-/**
- * Extracts the public ID from a Cloudinary URL.
- * Example URL:
- *   https://res.cloudinary.com/yourcloudname/image/upload/v123456789/userAvatars/filename.jpg
- * This function removes the version (v123456789) and the file extension.
- * @param {string} url - The Cloudinary URL.
- * @returns {string|null} - The public ID, e.g. "userAvatars/filename"
- */
 const extractPublicId = (url) => {
     if (!url) return null;
     // Remove any query parameters
@@ -105,9 +67,4 @@ const extractPublicId = (url) => {
     return publicId;
 };
 
-export {
-    uploadOnCloudinary,
-    tripUploadOnCloudinary,
-    deleteOnCloudinary,
-    extractPublicId,
-};
+export { uploadOnCloudinary, deleteOnCloudinary, extractPublicId };
