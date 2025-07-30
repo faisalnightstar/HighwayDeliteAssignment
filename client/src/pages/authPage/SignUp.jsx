@@ -9,6 +9,7 @@ import {
     FaRegCalendarAlt,
     FaRegEnvelope,
     FaKey,
+    FaGoogle,
 } from "react-icons/fa";
 import ResendOtpButton from "../../components/ResendOtpButton";
 import Button from "../../components/Button";
@@ -62,6 +63,10 @@ const SignUp = ({ toggleForm }) => {
         }
     };
 
+    const handleGoogleLogin = () => {
+        window.location.href = `${envConfig.BaseUrl}/users/google`;
+    };
+
     return (
         <div className="w-full lg:w-1/2 p-8 sm:p-12 flex flex-col justify-center">
             <div className="mb-8 flex flex-col items-center md:items-start ">
@@ -74,6 +79,20 @@ const SignUp = ({ toggleForm }) => {
                 <p className="text-gray-600 mt-2">
                     Sign up to enjoy the feature of HD
                 </p>
+            </div>
+            <button
+                type="button"
+                onClick={handleGoogleLogin}
+                className="w-full flex items-center justify-center gap-3 py-3 border-2 border-gray-300 rounded-xl font-semibold text-gray-700 hover:bg-gray-100 transition-colors"
+            >
+                <FaGoogle className="text-red-500" />
+                Continue with Google
+            </button>
+
+            <div className="my-6 flex items-center">
+                <div className="flex-grow border-t border-gray-300"></div>
+                <span className="flex-shrink mx-4 text-gray-500">OR</span>
+                <div className="flex-grow border-t border-gray-300"></div>
             </div>
             <form
                 onSubmit={handleSubmit(

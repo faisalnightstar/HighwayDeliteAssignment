@@ -41,10 +41,13 @@ router.route("/google/callback").get(
 
 // Simple failure handler
 router.route("/google/failure").get((req, res) => {
-    res.status(401).json({
-        success: false,
-        message: "Google authentication failed.",
-    });
+    // res.status(401).json({
+    //     success: false,
+    //     message: "Google authentication failed.",
+    // });
+    return res.redirect(
+        `${process.env.CORS_ORIGIN}/auth?error=google_auth_failed`
+    );
 });
 // Route to re-send a verification email
 router.route("/resend-otp").post(resendOtp);

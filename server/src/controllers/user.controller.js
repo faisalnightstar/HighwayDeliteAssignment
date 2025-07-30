@@ -154,8 +154,6 @@ export const verifyOtpAndRegister = asyncHandler(async (req, res) => {
         );
 });
 
-// --- NEW PASSWORDLESS LOGIN FLOW ---
-
 // Step 1: Send OTP for Login
 export const sendLoginOtp = asyncHandler(async (req, res) => {
     const { email } = req.body;
@@ -245,7 +243,7 @@ export const verifyLoginOtpAndSignIn = asyncHandler(async (req, res) => {
         );
 });
 
-//
+// Resend OTP
 export const resendOtp = asyncHandler(async (req, res) => {
     const { email } = req.body;
     if (!email) {
@@ -295,9 +293,7 @@ export const resendOtp = asyncHandler(async (req, res) => {
         );
 });
 
-// NEW CONTROLLER: Handles the callback from Google
 export const googleCallbackHandler = asyncHandler(async (req, res) => {
-    // Passport.js middleware has done the heavy lifting and attached the user to req.user
     const user = req.user;
     if (!user) {
         throw new ApiError(
@@ -315,22 +311,28 @@ export const googleCallbackHandler = asyncHandler(async (req, res) => {
         sameSite: "None",
     };
 
-    // Redirect to frontend with tokens, or send them in the response
-    // For a web client, redirecting is common.
-    // Example Redirect:
-    // return res.redirect(`${process.env.CORS_ORIGIN}/auth-success?accessToken=${accessToken}`);
+    if (process.env.NODE_ENV === "production") {
+        options.sameSite = "None"; // For cross-site requests in production
+    } else {
+        options.sameSite = "Lax";
+    }
 
-    return res
-        .status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
-        .json(
-            new ApiResponse(
-                200,
-                { user, accessToken, refreshToken },
-                "Successfully logged in with Google."
-            )
-        );
+    res.cookie("accessToken", accessToken, options);
+    res.cookie("refreshToken", refreshToken, options);
+
+    return res.redirect(`${process.env.CORS_ORIGIN}`);
+
+    // return res
+    //     .status(200)
+    //     .cookie("accessToken", accessToken, options)
+    //     .cookie("refreshToken", refreshToken, options)
+    //     .json(
+    //         new ApiResponse(
+    //             200,
+    //             { user, accessToken, refreshToken },
+    //             "Successfully logged in with Google."
+    //         )
+    //     );
 });
 
 export const getCurrentUser = asyncHandler(async (req, res) => {
