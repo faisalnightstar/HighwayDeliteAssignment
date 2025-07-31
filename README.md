@@ -165,9 +165,11 @@ Markdown
 -   **Frontend:** [https://highwaydelite-client.onrender.com/](https://highwaydelite-client.onrender.com/)
 -   **Backend:** [https://highwaydelite-subi.onrender.com/](https://highwaydelite-subi.onrender.com/)
 
+-   **Note:** The free instance will spin down with inactivity, which can delay requests by 50 seconds or more.
+
 ---
 
-## ✨ Features
+## Features
 
 ### Authentication & Security
 
