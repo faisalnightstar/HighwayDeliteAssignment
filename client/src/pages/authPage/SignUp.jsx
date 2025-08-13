@@ -68,7 +68,7 @@ const SignUp = ({ toggleForm }) => {
     };
 
     return (
-        <div className="w-full lg:w-1/2 p-8 sm:p-12 flex flex-col justify-center">
+        <div className="w-full lg:w-1/2 p-8 sm:p-12 flex flex-col justify-center ">
             <div className="mb-8 flex flex-col items-center md:items-start ">
                 <img
                     src="/logo.png"
@@ -85,7 +85,7 @@ const SignUp = ({ toggleForm }) => {
                 onClick={handleGoogleLogin}
                 className="w-full flex items-center justify-center gap-3 py-3 border-2 border-gray-300 rounded-xl font-semibold text-gray-700 hover:bg-gray-100 transition-colors"
             >
-                <FaGoogle className="text-red-500" />
+                <FaGoogle className="font-bold text-2xl" />
                 Continue with Google
             </button>
 
@@ -98,10 +98,11 @@ const SignUp = ({ toggleForm }) => {
                 onSubmit={handleSubmit(
                     step === 1 ? handleGetOtp : handleSignUp
                 )}
-                className="space-y-6"
+                className="space-y-4 "
                 noValidate
             >
                 <CustomInput
+                    className="mt-4"
                     id="fullName"
                     label="Your Name"
                     icon={FaRegUser}
@@ -167,13 +168,13 @@ const SignUp = ({ toggleForm }) => {
                 <Button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-blue-400 transition-colors"
+                    className="w-full bg-blue-600 text-white py-4 mt-4 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-blue-400 transition-colors"
                 >
                     {isLoading
                         ? "Processing..."
                         : step === 1
-                        ? "Get OTP"
-                        : "Sign up"}
+                            ? "Get OTP"
+                            : "Sign up"}
                 </Button>
             </form>
             <p className="mt-8 text-center text-gray-600">

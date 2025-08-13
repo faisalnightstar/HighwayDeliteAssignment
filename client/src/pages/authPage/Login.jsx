@@ -138,13 +138,13 @@ const Login = ({ toggleForm }) => {
                 <Button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-btn-bg-color text-button-color py-3 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-blue-400 transition-colors"
+                    className="w-full bg-btn-bg-color text-button-color py-3 mt-4 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-blue-400 transition-colors"
                 >
                     {isLoading
                         ? "Processing..."
                         : step === 1
-                        ? "Get OTP"
-                        : "Sign In"}
+                            ? "Get OTP"
+                            : "Sign In"}
                 </Button>
             </form>
             <p className="mt-8 text-center text-gray-600">
